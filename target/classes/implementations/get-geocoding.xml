@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="get:\geocoding:sapi-geocoding-config">
+		<logger level="INFO" doc:name="Start Logger" doc:id="2dd9cdd9-0805-4c7f-951d-6ac9d46ea6c7" message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  &quot;logger&quot;: &quot;Start Logger&quot;,&#10;  &quot;correlationId&quot;: vars.correlationId default &quot;N/A&quot;,&#10;  &quot;transactionId&quot;: vars.transactionId default &quot;N/A&quot;,&#10;  &quot;dateTime&quot;: now() as String { format: &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot; },&#10;  &quot;flow&quot;: flow.name default &quot;unknown-flow&quot;,&#10;  &quot;layer&quot;: &quot;system&quot;&#10;}]" />
+		<ee:transform doc:name="Set Params" doc:id="b5d786d6-4b6a-4efa-bcfa-958c636a68c8">
+			<ee:variables>
+				<ee:set-variable variableName="queryParams" ><![CDATA[attributes.queryParams ++ {
+	"apiKey": Mule::p('secure::geoapify.api.api_key')
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<http:request method="GET" doc:name="Geoapify" doc:id="695faa7f-bf39-4325-9b10-ea962e2ce722" config-ref="Geoapify" path="/geocode/search">
+			<http:query-params ><![CDATA[#[vars.queryParams]]]></http:query-params>
+		</http:request>
+		<ee:transform doc:name="Response">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"country": payload.results[0].country,
+	"latitude": payload.results[0].lon,
+	"longitude": payload.results[0].lat,
+	"timezone": payload.results[0].timezone.name
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End Logger" doc:id="4a797cb1-3ede-4b08-9b56-8a3ab687b764" message="#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;  &quot;logger&quot;: &quot;End Logger&quot;,&#10;  &quot;correlationId&quot;: vars.correlationId default &quot;N/A&quot;,&#10;  &quot;transactionId&quot;: vars.transactionId default &quot;N/A&quot;,&#10;  &quot;dateTime&quot;: now() as String { format: &quot;yyyy-MM-dd'T'HH:mm:ss'Z'&quot; },&#10;  &quot;flow&quot;: flow.name default &quot;unknown-flow&quot;,&#10;  &quot;layer&quot;: &quot;system&quot;&#10;}]" />
+	
+</flow>
+</mule>

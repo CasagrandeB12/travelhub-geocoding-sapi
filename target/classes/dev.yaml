@@ -1,0 +1,8 @@
+http:
+  port: ${http.port}
+
+geoapify.api:
+  host: "api.geoapify.com"
+  port: "443"
+  path: "/v1"
+  api_key: "![S8VycIfn7Jnl0jzom6GUduFVZ1i1cBcdDmSFoPxhxskYJ1gjLY3PTyOdKodSxc1l]"

@@ -1,0 +1,38 @@
+{
+  "configs": [
+    "global.xml",
+    "implementations/get-geocoding.xml",
+    "global-error-handler.xml",
+    "sapi-geocoding.xml"
+  ],
+  "secureProperties": [
+    "encrypt.key",
+    "anypoint.platform.client_secret"
+  ],
+  "supportedJavaVersions": [],
+  "redeploymentEnabled": true,
+  "name": "859200e0-96c9-40c4-918e-b36c5d106407:geocoding-api:1.0.3",
+  "minMuleVersion": "4.9.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "dev.yaml",
+        "global-error-handler.xml",
+        "global.xml",
+        "implementations/get-geocoding.xml",
+        "log4j2.xml",
+        "sapi-geocoding.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "javaSpecificationVersions": [
+    "17"
+  ]
+}
