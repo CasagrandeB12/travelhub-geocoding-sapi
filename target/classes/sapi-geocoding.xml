@@ -10,7 +10,14 @@
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:router config-ref="sapi-geocoding-config" />
+        <ee:transform doc:name="transactionId and correlationId" doc:id="cd20916b-3106-40ea-a69a-0b86fe294b7e">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="correlationId"><![CDATA[attributes.headers.'x-correlation-id']]></ee:set-variable>
+				<ee:set-variable variableName="transactionId"><![CDATA[attributes.headers.'x-transaction-id' default uuid()]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<apikit:router config-ref="sapi-geocoding-config" />
 		<error-handler ref="global-error-handler" />
     </flow>
     <flow name="sapi-geocoding-console">
