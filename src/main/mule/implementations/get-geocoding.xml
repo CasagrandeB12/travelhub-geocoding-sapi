@@ -26,8 +26,8 @@ output application/json
 ---
 {
 	"country": payload.results[0].country,
-	"latitude": payload.results[0].lon,
-	"longitude": payload.results[0].lat,
+	"latitude": payload.results[0].lat,
+	"longitude": payload.results[0].lon,
 	"timezone": payload.results[0].timezone.name
 }]]></ee:set-payload>
 			</ee:message>
