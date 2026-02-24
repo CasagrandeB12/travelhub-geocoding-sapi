@@ -16,7 +16,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<http:request method="GET" doc:name="Geoapify" doc:id="695faa7f-bf39-4325-9b10-ea962e2ce722" config-ref="Geoapify" path="/geocode/search">
+		<http:request method="GET" doc:name="Geoapify" doc:id="695faa7f-bf39-4325-9b10-ea962e2ce722" config-ref="Geoapify" path="/geocode/search" responseTimeout="300000">
 			<http:query-params ><![CDATA[#[vars.queryParams]]]></http:query-params>
 		</http:request>
 		<ee:transform doc:name="Response">

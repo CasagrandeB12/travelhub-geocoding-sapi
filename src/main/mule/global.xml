@@ -22,9 +22,8 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 		httpStatusVarName="httpStatus" />
 	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="eeea493f-6c2e-46ad-82d3-93ce167b6d7f" file="${env}.yaml" key="${encrypt.key}"/>
 	<http:request-config name="Geoapify" doc:name="HTTP Request configuration" doc:id="a822fb5b-9066-49af-9d26-b688cca0e6f8" basePath="${secure::geoapify.api.path}" >
-		<http:request-connection protocol="HTTPS" host="${secure::geoapify.api.host}" port="${secure::geoapify.api.port}" />
+		<http:request-connection protocol="HTTPS" host="${secure::geoapify.api.host}" port="${secure::geoapify.api.port}"/>
 	</http:request-config>
-	<api-gateway:autodiscovery apiId="20705541" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="a37d929b-2106-4d05-8b3c-3fd0819101d1" flowRef="sapi-geocoding-main" />
 
 
 </mule>
